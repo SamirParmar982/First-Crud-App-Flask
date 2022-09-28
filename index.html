@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title> TASK MASTER</title>
+{% endblock %}
+
+
+
+
+{% block body %}
+
+<div class='content'>
+    <h1 style = "text-align:center">Task Master</h1>
+    {% if tasks|length < 1 %}
+    <h4 style = "text-align:center">There are no tasks. Create one below!</h4>
+    {% else%}
+
+    <table> 
+        <tr>      
+            <th> Task</th>   <!--these are 3 columns-->
+            <th> Added </th>
+            <th> Actions </th>
+        </tr>
+        {% for task in tasks %}
+            <tr>                             <!--<td> these is a data cell , one of html tables kind-->
+                <td>{{task.content}}</td>        <!--Return the content of each tasks, content is from Class Todo -->                   
+                          
+                <td>{{task.date_created.date()}}</td>  <!--Shows the date_created from Class Todo -->
+                <td>                          <!--this data goes in Actions, means next row in 3rd column-->
+                    <a href = "/delete/{{task.id}}">Delete</a>
+                    <br>
+                    <a href = "/update/{{task.id}}">Update</a> 
+                </td>  
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action"/" method="POST">
+        <input type="text"  name = "content"  id = "content">
+        <input type ="submit" value = "ADD TASK">
+    </form>
+</div>
+
+{% endblock %}
